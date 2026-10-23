@@ -8,22 +8,27 @@ export default function PostLists() {
 
 
   useEffect(() => {
+    const controller = new AbortController()
     async function cargar() {
       try {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`)
-        if (res.ok) { throw new Error('Este es el error que debo mostrar en pantalla') }
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`, {signal: controller.signal})
+        if (!res.ok) throw new Error(`Error ${res.status}`);
 
         const data = await res.json()
-        console.log(data)
         setPosts(data)
 
       } catch (error) {
-        console.log(error.message)
+        if (error.name == 'AbortError') return
+        setError(error.message)      
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
       }
 
 
-    }
+    } 
     cargar()
+
+    return () => controller.abort()
 
   }, [page])
 
