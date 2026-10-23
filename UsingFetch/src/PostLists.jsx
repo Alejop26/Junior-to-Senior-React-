@@ -9,7 +9,7 @@ export default function PostLists() {
 
   useEffect(() => {
     const controller = new AbortController()
-    async function cargar() {
+    async function load() {
       try {
         const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`, {signal: controller.signal})
         if (!res.ok) throw new Error(`Error ${res.status}`);
@@ -26,7 +26,7 @@ export default function PostLists() {
 
 
     } 
-    cargar()
+    load()
 
     return () => controller.abort()
 
