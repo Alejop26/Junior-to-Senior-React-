@@ -1,12 +1,21 @@
 import PostLists from "./PostLists"
-
+import {useState} from "react"
 
 function App() {
- return(
-  <div><p>Que pasa calabaza</p>
-  <PostLists></PostLists></div>
+  const [show, setShow] = useState(true)
   
- )
+  const handleShow = () => {
+    setShow(!show)
+  }
+
+  return (
+    <div>
+      <p>Que pasa calabaza</p>
+      <button onClick={handleShow}>Cancelar peticion</button>
+      {show && <PostLists></PostLists>}
+    </div>
+
+  )
 }
 
 export default App

@@ -11,21 +11,24 @@ export default function PostLists() {
     const controller = new AbortController()
     async function load() {
       try {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`, {signal: controller.signal})
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`, { signal: controller.signal })
         if (!res.ok) throw new Error(`Error ${res.status}`);
 
         const data = await res.json()
+        
         setPosts(data)
+
 
       } catch (error) {
         if (error.name == 'AbortError') return
-        setError(error.message)      
+        setError(error.message)
+        
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }
 
 
-    } 
+    }
     load()
 
     return () => controller.abort()
@@ -33,7 +36,12 @@ export default function PostLists() {
   }, [page])
 
   return (
-    <ul>{posts?.map(element => <li key= {element.id}>{element.title}</li>)}</ul>
+    <section>
+      {loading && <p>Cargando ...</p>}
+      {error && <p>Error: {error}</p>}
+      <ul>{posts?.map(element => <li key={element.id}>{element.title}</li>)}</ul>
+    </section>
+
   )
 }
 
