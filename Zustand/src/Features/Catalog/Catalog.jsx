@@ -16,6 +16,7 @@ function Catalog() {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
+  const [sortBy, setSortBy] = useState('featured')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [retry, setRetry] = useState(0)
@@ -71,7 +72,7 @@ function Catalog() {
   const filteredProducts = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase()
 
-    return products.filter((product) => {
+    const matches = products.filter((product) => {
       const matchesCategory =
         category === 'all' || product.category === category
       const matchesSearch =
@@ -80,7 +81,23 @@ function Catalog() {
 
       return matchesCategory && matchesSearch
     })
-  }, [category, products, search])
+
+    return matches.sort((first, second) => {
+      if (sortBy === 'price-ascending') {
+        return first.price - second.price
+      }
+
+      if (sortBy === 'price-descending') {
+        return second.price - first.price
+      }
+
+      if (sortBy === 'rating') {
+        return second.rating - first.rating
+      }
+
+      return first.title.localeCompare(second.title)
+    })
+  }, [category, products, search, sortBy])
 
   return (
     <section className="catalog" aria-labelledby="catalog-title">
@@ -120,6 +137,19 @@ function Catalog() {
                 {item}
               </option>
             ))}
+          </select>
+        </label>
+
+        <label className="catalog__sort">
+          <span>Ordenar por</span>
+          <select
+            value={sortBy}
+            onChange={(event) => setSortBy(event.target.value)}
+          >
+            <option value="featured">Nombre</option>
+            <option value="price-ascending">Menor precio</option>
+            <option value="price-descending">Mayor precio</option>
+            <option value="rating">Mejor calificación</option>
           </select>
         </label>
       </div>
