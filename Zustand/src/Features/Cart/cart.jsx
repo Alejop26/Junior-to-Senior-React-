@@ -3,8 +3,8 @@ import { userStore } from '../../Store/userStore'
 const formatPrice = (price) =>
   new Intl.NumberFormat('es-CO', {
     style: 'currency',
-    currency: 'COP',
-    maximumFractionDigits: 0,
+    currency: 'USD',
+    maximumFractionDigits: 2,
   }).format(price)
 
 function Cart() {
