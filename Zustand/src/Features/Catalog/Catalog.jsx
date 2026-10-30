@@ -20,6 +20,7 @@ function Catalog() {
   const [category, setCategory] = useState('all')
   const [sortBy, setSortBy] = useState('featured')
   const [priceLimit, setPriceLimit] = useState(null)
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [retry, setRetry] = useState(0)
@@ -83,11 +84,13 @@ function Catalog() {
       const matchesCategory =
         category === 'all' || product.category === category
       const matchesPrice = priceLimit === null || product.price <= priceLimit
+      const matchesFavorites =
+        !favoritesOnly || favorites.includes(product.id)
       const matchesSearch =
         !normalizedSearch ||
         `${product.title} ${product.description}`.toLowerCase().includes(normalizedSearch)
 
-      return matchesCategory && matchesPrice && matchesSearch
+      return matchesCategory && matchesPrice && matchesFavorites && matchesSearch
     })
 
     return matches.sort((first, second) => {
@@ -105,7 +108,7 @@ function Catalog() {
 
       return first.title.localeCompare(second.title)
     })
-  }, [category, priceLimit, products, search, sortBy])
+  }, [category, favorites, favoritesOnly, priceLimit, products, search, sortBy])
 
   return (
     <section className="catalog" aria-labelledby="catalog-title">
@@ -174,6 +177,15 @@ function Catalog() {
             onChange={(event) => setPriceLimit(Number(event.target.value))}
             disabled={loading || products.length === 0}
           />
+        </label>
+
+        <label className="catalog__favorites-filter">
+          <input
+            type="checkbox"
+            checked={favoritesOnly}
+            onChange={(event) => setFavoritesOnly(event.target.checked)}
+          />
+          <span>Solo favoritos ({favorites.length})</span>
         </label>
       </div>
 

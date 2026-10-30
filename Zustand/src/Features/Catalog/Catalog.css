@@ -140,6 +140,20 @@ button {
   accent-color: #3448d4;
 }
 
+.catalog__filters .catalog__favorites-filter {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.catalog__favorites-filter input {
+  width: 16px;
+  min-height: 16px;
+  accent-color: #3448d4;
+}
+
 .catalog__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
