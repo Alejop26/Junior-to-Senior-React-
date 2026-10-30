@@ -13,6 +13,8 @@ const formatPrice = (price) =>
 
 function Catalog() {
   const addToCart = userStore((state) => state.addToCart)
+  const favorites = userStore((state) => state.favorites)
+  const toggleFavorite = userStore((state) => state.toggleFavorite)
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
@@ -181,6 +183,19 @@ function Catalog() {
             <li className="product-card" key={product.id}>
               <div className="product-card__image">
                 <img src={product.thumbnail} alt={product.title} loading="lazy" />
+                <button
+                  type="button"
+                  className={`product-card__favorite${favorites.includes(product.id) ? ' is-favorite' : ''}`}
+                  onClick={() => toggleFavorite(product.id)}
+                  aria-pressed={favorites.includes(product.id)}
+                  aria-label={
+                    favorites.includes(product.id)
+                      ? `Quitar ${product.title} de favoritos`
+                      : `Agregar ${product.title} a favoritos`
+                  }
+                >
+                  {favorites.includes(product.id) ? '♥' : '♡'}
+                </button>
                 {product.discountPercentage > 0 && (
                   <span className="product-card__discount">
                     -{Math.round(product.discountPercentage)}%

@@ -5,6 +5,7 @@ export const userStore = create(
   persist(
     (set) => ({
       cart: [],
+      favorites: [],
 
       addToCart: (product) =>
         set((state) => {
@@ -57,10 +58,20 @@ export const userStore = create(
         })),
 
       clearCart: () => set({ cart: [] }),
+
+      toggleFavorite: (productId) =>
+        set((state) => ({
+          favorites: state.favorites.includes(productId)
+            ? state.favorites.filter((id) => id !== productId)
+            : [...state.favorites, productId],
+        })),
     }),
     {
       name: 'shopping-cart',
-      partialize: (state) => ({ cart: state.cart }),
+      partialize: (state) => ({
+        cart: state.cart,
+        favorites: state.favorites,
+      }),
     }
   )
 )

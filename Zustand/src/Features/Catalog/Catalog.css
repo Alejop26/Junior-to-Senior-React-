@@ -162,6 +162,29 @@ button {
   mix-blend-mode: multiply;
 }
 
+.product-card__favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #e8ebf0;
+  border-radius: 50%;
+  background: #fff;
+  color: #64748b;
+  font-size: 1.15rem;
+}
+
+.product-card__favorite.is-favorite {
+  color: #e11d48;
+}
+
+.product-card__favorite:hover {
+  color: #e11d48;
+}
+
 .product-card__discount {
   position: absolute;
   top: 12px;
