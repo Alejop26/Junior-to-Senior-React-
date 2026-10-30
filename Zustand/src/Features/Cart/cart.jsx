@@ -9,6 +9,8 @@ const formatPrice = (price) =>
 
 function Cart() {
   const cart = userStore((state) => state.cart)
+  const increaseQuantity = userStore((state) => state.increaseQuantity)
+  const decreaseQuantity = userStore((state) => state.decreaseQuantity)
   const removeFromCart = userStore((state) => state.removeFromCart)
   const clearCart = userStore((state) => state.clearCart)
 
@@ -40,9 +42,28 @@ function Cart() {
             <li className="cart__item" key={product.id}>
               <div>
                 <h3>{name}</h3>
-                <p>
-                  {formatPrice(price)} × {product.quantity}
-                </p>
+                <p>{formatPrice(price)} cada uno</p>
+                <div className="cart__quantity">
+                  <button
+                    type="button"
+                    onClick={() => decreaseQuantity(product.id)}
+                    aria-label={`Disminuir cantidad de ${name}`}
+                  >
+                    −
+                  </button>
+                  <span aria-live="polite">{product.quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => increaseQuantity(product.id)}
+                    disabled={
+                      Number.isFinite(product.stock) &&
+                      product.quantity >= product.stock
+                    }
+                    aria-label={`Aumentar cantidad de ${name}`}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               <p>{formatPrice(price * product.quantity)}</p>
               <button

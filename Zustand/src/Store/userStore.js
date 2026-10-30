@@ -11,6 +11,13 @@ export const userStore = create(
           const existingProduct = state.cart.find((item) => item.id === product.id)
 
           if (existingProduct) {
+            if (
+              Number.isFinite(existingProduct.stock) &&
+              existingProduct.quantity >= existingProduct.stock
+            ) {
+              return state
+            }
+
             return {
               cart: state.cart.map((item) =>
                 item.id === product.id
@@ -22,6 +29,27 @@ export const userStore = create(
 
           return { cart: [...state.cart, { ...product, quantity: 1 }] }
         }),
+
+      increaseQuantity: (productId) =>
+        set((state) => ({
+          cart: state.cart.map((product) =>
+            product.id === productId &&
+            (!Number.isFinite(product.stock) || product.quantity < product.stock)
+              ? { ...product, quantity: product.quantity + 1 }
+              : product
+          ),
+        })),
+
+      decreaseQuantity: (productId) =>
+        set((state) => ({
+          cart: state.cart
+            .map((product) =>
+              product.id === productId
+                ? { ...product, quantity: product.quantity - 1 }
+                : product
+            )
+            .filter((product) => product.quantity > 0),
+        })),
 
       removeFromCart: (productId) =>
         set((state) => ({

@@ -277,6 +277,21 @@ button {
   margin: 0;
 }
 
+.cart__quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.cart__quantity span {
+  min-width: 1.5em;
+  color: #172033;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .cart__item h3 {
   font-size: 0.9rem;
 }
@@ -288,6 +303,7 @@ button {
 }
 
 .cart__item button,
+.cart__quantity button,
 .cart > button {
   padding: 6px 9px;
   border: 1px solid #dce1e9;
@@ -295,6 +311,11 @@ button {
   background: #fff;
   color: #3448d4;
   font-size: 0.78rem;
+}
+
+.cart__quantity button:disabled {
+  cursor: not-allowed;
+  color: #94a3b8;
 }
 
 .cart__summary {
