@@ -3,6 +3,7 @@ import { userStore } from '../../Store/userStore'
 import './Catalog.css'
 
 const PRODUCTS_URL = 'https://dummyjson.com/products?limit=30'
+const PRODUCTS_PER_PAGE = 12
 
 const formatPrice = (price) =>
   new Intl.NumberFormat('es-CO', {
@@ -21,6 +22,7 @@ function Catalog() {
   const [sortBy, setSortBy] = useState('featured')
   const [priceLimit, setPriceLimit] = useState(null)
   const [favoritesOnly, setFavoritesOnly] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(PRODUCTS_PER_PAGE)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [retry, setRetry] = useState(0)
@@ -131,7 +133,10 @@ function Catalog() {
           <input
             type="search"
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value)
+              setVisibleCount(PRODUCTS_PER_PAGE)
+            }}
             placeholder="Ej. teléfono, perfume..."
           />
         </label>
@@ -140,7 +145,10 @@ function Catalog() {
           <span>Categoría</span>
           <select
             value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            onChange={(event) => {
+              setCategory(event.target.value)
+              setVisibleCount(PRODUCTS_PER_PAGE)
+            }}
           >
             <option value="all">Todas las categorías</option>
             {categories.map((item) => (
@@ -155,7 +163,10 @@ function Catalog() {
           <span>Ordenar por</span>
           <select
             value={sortBy}
-            onChange={(event) => setSortBy(event.target.value)}
+            onChange={(event) => {
+              setSortBy(event.target.value)
+              setVisibleCount(PRODUCTS_PER_PAGE)
+            }}
           >
             <option value="featured">Nombre</option>
             <option value="price-ascending">Menor precio</option>
@@ -174,7 +185,10 @@ function Catalog() {
             max={highestPrice}
             step="1"
             value={priceLimit ?? highestPrice}
-            onChange={(event) => setPriceLimit(Number(event.target.value))}
+            onChange={(event) => {
+              setPriceLimit(Number(event.target.value))
+              setVisibleCount(PRODUCTS_PER_PAGE)
+            }}
             disabled={loading || products.length === 0}
           />
         </label>
@@ -183,7 +197,10 @@ function Catalog() {
           <input
             type="checkbox"
             checked={favoritesOnly}
-            onChange={(event) => setFavoritesOnly(event.target.checked)}
+            onChange={(event) => {
+              setFavoritesOnly(event.target.checked)
+              setVisibleCount(PRODUCTS_PER_PAGE)
+            }}
           />
           <span>Solo favoritos ({favorites.length})</span>
         </label>
@@ -212,7 +229,7 @@ function Catalog() {
 
       {!loading && !error && filteredProducts.length > 0 && (
         <ul className="catalog__grid">
-          {filteredProducts.map((product) => (
+          {filteredProducts.slice(0, visibleCount).map((product) => (
             <li className="product-card" key={product.id}>
               <div className="product-card__image">
                 <img src={product.thumbnail} alt={product.title} loading="lazy" />
@@ -260,6 +277,18 @@ function Catalog() {
             </li>
           ))}
         </ul>
+      )}
+
+      {!loading && !error && visibleCount < filteredProducts.length && (
+        <button
+          className="catalog__load-more"
+          type="button"
+          onClick={() =>
+            setVisibleCount((count) => count + PRODUCTS_PER_PAGE)
+          }
+        >
+          Mostrar más productos
+        </button>
       )}
     </section>
   )

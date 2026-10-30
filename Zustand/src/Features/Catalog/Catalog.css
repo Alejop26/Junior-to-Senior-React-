@@ -301,6 +301,21 @@ button {
   margin: 0 0 14px;
 }
 
+.catalog__load-more {
+  display: block;
+  margin: 24px auto 0;
+  padding: 11px 18px;
+  border: 1px solid #3448d4;
+  border-radius: 9px;
+  background: #fff;
+  color: #3448d4;
+  font-weight: 700;
+}
+
+.catalog__load-more:hover {
+  background: #f0f2ff;
+}
+
 .cart h2 {
   margin-bottom: 20px;
 }
