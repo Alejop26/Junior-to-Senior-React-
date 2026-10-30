@@ -19,6 +19,7 @@ function Catalog() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
   const [sortBy, setSortBy] = useState('featured')
+  const [priceLimit, setPriceLimit] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [retry, setRetry] = useState(0)
@@ -70,6 +71,10 @@ function Catalog() {
     () => [...new Set(products.map((product) => product.category))].sort(),
     [products]
   )
+  const highestPrice = useMemo(
+    () => Math.ceil(Math.max(...products.map((product) => product.price), 0)),
+    [products]
+  )
 
   const filteredProducts = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase()
@@ -77,11 +82,12 @@ function Catalog() {
     const matches = products.filter((product) => {
       const matchesCategory =
         category === 'all' || product.category === category
+      const matchesPrice = priceLimit === null || product.price <= priceLimit
       const matchesSearch =
         !normalizedSearch ||
         `${product.title} ${product.description}`.toLowerCase().includes(normalizedSearch)
 
-      return matchesCategory && matchesSearch
+      return matchesCategory && matchesPrice && matchesSearch
     })
 
     return matches.sort((first, second) => {
@@ -99,7 +105,7 @@ function Catalog() {
 
       return first.title.localeCompare(second.title)
     })
-  }, [category, products, search, sortBy])
+  }, [category, priceLimit, products, search, sortBy])
 
   return (
     <section className="catalog" aria-labelledby="catalog-title">
@@ -153,6 +159,21 @@ function Catalog() {
             <option value="price-descending">Mayor precio</option>
             <option value="rating">Mejor calificación</option>
           </select>
+        </label>
+
+        <label className="catalog__price">
+          <span>
+            Precio máximo: {formatPrice(priceLimit ?? highestPrice)}
+          </span>
+          <input
+            type="range"
+            min="0"
+            max={highestPrice}
+            step="1"
+            value={priceLimit ?? highestPrice}
+            onChange={(event) => setPriceLimit(Number(event.target.value))}
+            disabled={loading || products.length === 0}
+          />
         </label>
       </div>
 

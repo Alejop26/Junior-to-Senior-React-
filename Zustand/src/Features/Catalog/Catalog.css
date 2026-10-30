@@ -130,6 +130,16 @@ button {
   outline: 3px solid rgb(83 109 254 / 15%);
 }
 
+.catalog__filters .catalog__price {
+  min-width: 150px;
+}
+
+.catalog__price input[type="range"] {
+  min-height: 18px;
+  padding: 0;
+  accent-color: #3448d4;
+}
+
 .catalog__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
