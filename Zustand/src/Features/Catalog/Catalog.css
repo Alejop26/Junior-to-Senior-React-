@@ -443,6 +443,23 @@ button {
   background: #fff;
   color: #3448d4;
   font-size: 0.78rem;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.cart__item button:hover,
+.cart__quantity button:not(:disabled):hover,
+.cart > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgb(52 72 212 / 14%);
+}
+
+.cart__item button:active,
+.cart__quantity button:not(:disabled):active,
+.cart > button:active {
+  transform: scale(0.96);
 }
 
 .cart__quantity button:disabled {
