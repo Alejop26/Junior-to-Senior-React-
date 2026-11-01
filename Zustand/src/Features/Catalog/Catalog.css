@@ -320,6 +320,27 @@ button {
   margin-bottom: 20px;
 }
 
+.cart__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart__count-badge {
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: #eef0ff;
+  color: #3448d4;
+  font-size: 0.8rem;
+  font-weight: 700;
+  animation: cart-quantity-pop 240ms ease-out;
+}
+
 .cart--animated {
   animation: cart-enter 550ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }

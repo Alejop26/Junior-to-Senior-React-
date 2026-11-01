@@ -23,7 +23,12 @@ function Cart() {
   if (cart.length === 0) {
     return (
       <section className="cart cart--animated" aria-labelledby="cart-title">
-        <h2 id="cart-title">Carrito de compras</h2>
+        <div className="cart__heading">
+          <h2 id="cart-title">Carrito de compras</h2>
+          <span className="cart__count-badge" aria-label="0 artículos">
+            0
+          </span>
+        </div>
         <div className="cart__empty">
           <span className="cart__empty-icon" aria-hidden="true">
             🛒
@@ -36,7 +41,16 @@ function Cart() {
 
   return (
     <section className="cart cart--animated" aria-labelledby="cart-title">
-      <h2 id="cart-title">Carrito de compras</h2>
+      <div className="cart__heading">
+        <h2 id="cart-title">Carrito de compras</h2>
+        <span
+          className="cart__count-badge"
+          key={itemCount}
+          aria-label={`${itemCount} ${itemCount === 1 ? 'artículo' : 'artículos'}`}
+        >
+          {itemCount}
+        </span>
+      </div>
 
       <ul className="cart__items">
         {cart.map((product, index) => {
