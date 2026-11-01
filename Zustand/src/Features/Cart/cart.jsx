@@ -60,7 +60,13 @@ function Cart() {
                   >
                     −
                   </button>
-                  <span aria-live="polite">{product.quantity}</span>
+                  <span
+                    className="cart__quantity-value"
+                    key={product.quantity}
+                    aria-live="polite"
+                  >
+                    {product.quantity}
+                  </span>
                   <button
                     type="button"
                     onClick={() => increaseQuantity(product.id)}

@@ -413,6 +413,17 @@ button {
   text-align: center;
 }
 
+.cart__quantity-value {
+  animation: cart-quantity-pop 240ms ease-out;
+}
+
+@keyframes cart-quantity-pop {
+  50% {
+    color: #3448d4;
+    transform: scale(1.35);
+  }
+}
+
 .cart__item h3 {
   font-size: 0.9rem;
 }
