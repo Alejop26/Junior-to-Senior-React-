@@ -83,6 +83,7 @@ function Cart() {
               <p>{formatPrice(price * product.quantity)}</p>
               <button
                 type="button"
+                className="cart__remove"
                 onClick={() => removeFromCart(product.id)}
                 aria-label={`Quitar ${name} del carrito`}
               >

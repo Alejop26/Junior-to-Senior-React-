@@ -467,6 +467,15 @@ button {
   color: #94a3b8;
 }
 
+.cart__remove {
+  color: #a33b54;
+}
+
+.cart__remove:hover {
+  border-color: #f0c4cf;
+  background: #fff3f5;
+}
+
 .cart__summary {
   margin: 18px 0;
 }
