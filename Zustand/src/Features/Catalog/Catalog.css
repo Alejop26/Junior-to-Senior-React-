@@ -560,3 +560,18 @@ button {
     gap: 4px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .cart--animated,
+  .cart__item,
+  .cart__empty-icon,
+  .cart__quantity-value,
+  .cart__total-value,
+  .cart__count-badge,
+  .cart__item button,
+  .cart__quantity button,
+  .cart > button {
+    animation: none;
+    transition: none;
+  }
+}
