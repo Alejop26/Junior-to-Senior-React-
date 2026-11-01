@@ -348,6 +348,19 @@ button {
   align-items: start;
   padding-bottom: 14px;
   border-bottom: 1px solid #e8ebf0;
+  animation: cart-item-enter 420ms ease both;
+}
+
+@keyframes cart-item-enter {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .cart__item h3,

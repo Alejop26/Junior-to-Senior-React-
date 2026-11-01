@@ -34,12 +34,16 @@ function Cart() {
       <h2 id="cart-title">Carrito de compras</h2>
 
       <ul className="cart__items">
-        {cart.map((product) => {
+        {cart.map((product, index) => {
           const name = product.name ?? product.title ?? 'Producto'
           const price = Number(product.price ?? 0)
 
           return (
-            <li className="cart__item" key={product.id}>
+            <li
+              className="cart__item"
+              key={product.id}
+              style={{ animationDelay: `${Math.min(index, 6) * 70}ms` }}
+            >
               <div>
                 <h3>{name}</h3>
                 <p>{formatPrice(price)} cada uno</p>
