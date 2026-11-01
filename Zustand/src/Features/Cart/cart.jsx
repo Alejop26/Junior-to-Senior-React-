@@ -24,7 +24,12 @@ function Cart() {
     return (
       <section className="cart cart--animated" aria-labelledby="cart-title">
         <h2 id="cart-title">Carrito de compras</h2>
-        <p>Tu carrito está vacío.</p>
+        <div className="cart__empty">
+          <span className="cart__empty-icon" aria-hidden="true">
+            🛒
+          </span>
+          <p>Tu carrito está vacío. ¡Vamos a encontrar algo genial!</p>
+        </div>
       </section>
     )
   }

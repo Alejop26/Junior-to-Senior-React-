@@ -344,6 +344,36 @@ button {
   list-style: none;
 }
 
+.cart__empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px 0 4px;
+  color: #64748b;
+  text-align: center;
+}
+
+.cart__empty p {
+  margin: 0;
+}
+
+.cart__empty-icon {
+  display: inline-block;
+  font-size: 2rem;
+  animation: cart-empty-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes cart-empty-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-8deg);
+  }
+}
+
 .cart__item {
   align-items: start;
   padding-bottom: 14px;
