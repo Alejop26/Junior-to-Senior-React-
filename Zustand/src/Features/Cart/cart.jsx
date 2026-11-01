@@ -97,7 +97,12 @@ function Cart() {
         <p>
           {itemCount} {itemCount === 1 ? 'artículo' : 'artículos'}
         </p>
-        <p>Total: {formatPrice(total)}</p>
+        <p>
+          Total:{' '}
+          <span className="cart__total-value" key={total} aria-live="polite">
+            {formatPrice(total)}
+          </span>
+        </p>
       </div>
 
       <button type="button" onClick={clearCart}>

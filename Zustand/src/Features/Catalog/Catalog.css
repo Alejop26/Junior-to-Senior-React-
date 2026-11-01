@@ -458,6 +458,20 @@ button {
   margin: 0;
 }
 
+.cart__total-value {
+  display: inline-block;
+  color: #172033;
+  font-weight: 700;
+  animation: cart-total-update 320ms ease-out;
+}
+
+@keyframes cart-total-update {
+  50% {
+    color: #3448d4;
+    transform: translateY(-2px) scale(1.06);
+  }
+}
+
 .cart > button {
   width: 100%;
 }
