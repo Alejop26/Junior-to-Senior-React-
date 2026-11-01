@@ -22,7 +22,7 @@ function Cart() {
 
   if (cart.length === 0) {
     return (
-      <section className="cart" aria-labelledby="cart-title">
+      <section className="cart cart--animated" aria-labelledby="cart-title">
         <h2 id="cart-title">Carrito de compras</h2>
         <p>Tu carrito está vacío.</p>
       </section>
@@ -30,7 +30,7 @@ function Cart() {
   }
 
   return (
-    <section className="cart" aria-labelledby="cart-title">
+    <section className="cart cart--animated" aria-labelledby="cart-title">
       <h2 id="cart-title">Carrito de compras</h2>
 
       <ul className="cart__items">
